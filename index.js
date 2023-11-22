@@ -1,5 +1,6 @@
 
-require('dotenv').config()
+const openaiApiKey = process.env.OPENAI_API_KEY;
+const openaiUrl = process.env.OPENAI_URL;
 
 const promptInput = document.getElementById("promptInput");
 const generateBtn = document.getElementById("generateBtn");
@@ -10,11 +11,11 @@ const generate = async () => {
 
     try {
         // Fetch the response from the OpenAI API with the signal from AbortController
-        const response = await fetch(OPENAI_URL, {
+        const response = await fetch(openaiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${OPENAI_API_KEY}`,
+                Authorization: `Bearer ${openaiApiKey}`,
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
