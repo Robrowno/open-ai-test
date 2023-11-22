@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
     const { content } = req.body;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/engines/gpt-3.5-turbo/completions', {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
