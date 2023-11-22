@@ -1,7 +1,4 @@
 
-// const OPENAI_API_KEY = "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"
-// const OPENAI_URL = "https://api.openai.com/v1/chat/completions"
-
 require('dotenv').config()
 
 const promptInput = document.getElementById("promptInput");
