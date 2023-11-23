@@ -26,7 +26,6 @@ const generate = async () => {
 promptInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
         generate();
-
     }
 });
 generateBtn.addEventListener("click", generate);

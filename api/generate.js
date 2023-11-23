@@ -12,7 +12,16 @@ module.exports = async (req, res) => {
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
-                messages: [{ role: "user", content }],
+                messages: [
+                    { role: "system", content: "Hello, I am a chatbot." },
+                    { role: "user", content },
+                ],
+                max_tokens: 256,
+                temperature: 1,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+
             }),
         });
 
