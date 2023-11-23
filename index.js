@@ -6,7 +6,7 @@ const stopBtn = document.getElementById("stopBtn");
 let controller = null;
 
 
-const fetchWithTimeout = (url, options, timeout = 7000) => {
+const fetchWithTimeout = (url, options, timeout = 10000) => {
     return Promise.race([
         fetch(url, options),
         new Promise((_, reject) =>
@@ -38,7 +38,7 @@ const generate = async () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: promptInput.value }),
             signal,
-        }, 6000);
+        }, 7000);
 
         const text = await response.text();
         // Append new response

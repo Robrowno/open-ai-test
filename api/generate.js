@@ -1,6 +1,6 @@
 // api/generate.js
 
-const fetchWithTimeout = (url, options, timeout = 7000) => {
+const fetchWithTimeout = (url, options, timeout = 10000) => {
     return Promise.race([
         fetch(url, options),
         new Promise((_, reject) =>
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
                 presence_penalty: 0,
 
             }),
-        }, 6000);
+        }, 7000);
 
         const data = await response.json();
         res.status(200).json(data.choices[0].message.content);
