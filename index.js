@@ -1,10 +1,9 @@
-const promptInput = document.getElementById("promptInput");
-const generateBtn = document.getElementById("generateBtn");
-const resultText = document.getElementById("resultText");
+const promptInput = document.getElementById("userInput");
+const generateBtn = document.getElementById("submitBtn");
+const resultText = document.getElementById("promptOutput");
 
 const generate = async () => {
     try {
-        // Send the user input to the serverless function
         const response = await fetch('/api/generate', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -12,16 +11,20 @@ const generate = async () => {
         });
 
         const text = await response.text();
-        resultText.innerText = text;
+        // Append new response
+        resultText.innerHTML += `<div>${text}</div>`;
+        // Scroll to the latest response
+        resultText.scrollTop = resultText.scrollHeight;
     } catch (error) {
         console.error("Error:", error);
-        resultText.innerText = "Error occurred while generating.";
+        resultText.innerHTML += `<div>Error occurred while generating.</div>`;
     }
 };
 
 promptInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
         generate();
+        promptInput.value = ''; // Clear input after sending
     }
 });
 generateBtn.addEventListener("click", generate);
