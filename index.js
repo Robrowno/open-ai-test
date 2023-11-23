@@ -2,13 +2,23 @@ const promptInput = document.getElementById("promptInput");
 const generateBtn = document.getElementById("generateBtn");
 const resultText = document.getElementById("resultText");
 
+
+const fetchWithTimeout = (url, options, timeout = 7000) => {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Request timed out')), timeout)
+        )
+    ]);
+};
+
 const generate = async () => {
     try {
-        const response = await fetch('/api/generate', {
+        const response = await fetchWithTimeout('/api/generate', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: promptInput.value }),
-        });
+        }, 6000);
 
         const text = await response.text();
         // Append new response

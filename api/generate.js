@@ -1,10 +1,22 @@
 // api/generate.js
+
+const fetchWithTimeout = (url, options, timeout = 7000) => {
+    return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Request timed out')), timeout)
+        )
+    ]);
+};
+
+
+
 module.exports = async (req, res) => {
     // Extract user input from the request
     const { content } = req.body;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +35,7 @@ module.exports = async (req, res) => {
                 presence_penalty: 0,
 
             }),
-        });
+        }, 6000);
 
         const data = await response.json();
         res.status(200).json(data.choices[0].message.content);
