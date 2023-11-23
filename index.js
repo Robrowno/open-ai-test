@@ -12,19 +12,21 @@ const generate = async () => {
 
         const text = await response.text();
         // Append new response
-        resultText.innerHTML += `<div>${text}</div>`;
+        resultText.innerHTML += `<div style="padding: 10px 0;">${text}</div>`;
         // Scroll to the latest response
         resultText.scrollTop = resultText.scrollHeight;
+        promptInput.value = '';
     } catch (error) {
         console.error("Error:", error);
         resultText.innerHTML += `<div>Error occurred while generating.</div>`;
+        promptInput.value = '';
     }
 };
 
 promptInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
         generate();
-        promptInput.value = '';
+
     }
 });
 generateBtn.addEventListener("click", generate);
