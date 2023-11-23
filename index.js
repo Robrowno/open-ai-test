@@ -15,6 +15,7 @@ const generate = async () => {
         resultText.innerHTML += `<div>${text}</div>`;
         // Scroll to the latest response
         resultText.scrollTop = resultText.scrollHeight;
+        promptInput.value = '';
     } catch (error) {
         console.error("Error:", error);
         resultText.innerHTML += `<div>Error occurred while generating.</div>`;
@@ -24,7 +25,6 @@ const generate = async () => {
 promptInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
         generate();
-        promptInput.value = ''; // Clear input after sending
     }
 });
 generateBtn.addEventListener("click", generate);
