@@ -1,6 +1,9 @@
 const promptInput = document.getElementById("promptInput");
 const generateBtn = document.getElementById("generateBtn");
 const resultText = document.getElementById("resultText");
+const stopBtn = document.getElementById("stopBtn");
+
+let controller = null;
 
 
 const fetchWithTimeout = (url, options, timeout = 7000) => {
@@ -13,11 +16,28 @@ const fetchWithTimeout = (url, options, timeout = 7000) => {
 };
 
 const generate = async () => {
+
+
+    // Alert the user if no prompt value
+    if (!promptInput.value) {
+        alert("Please enter a prompt.");
+        return;
+    }
+
+    // Disable the generate button and enable the stop button
+    generateBtn.disabled = true;
+    stopBtn.disabled = false;
+    resultText.innerText = "Generating...";
+
+    controller = new AbortController();
+    const signal = controller.signal;
+
     try {
         const response = await fetchWithTimeout('/api/generate', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: promptInput.value }),
+            signal,
         }, 6000);
 
         const text = await response.text();
@@ -27,11 +47,30 @@ const generate = async () => {
         resultText.scrollTop = resultText.scrollHeight;
         promptInput.value = '';
     } catch (error) {
-        console.error("Error:", error);
-        resultText.innerHTML += `<div>Error occurred while generating.</div>`;
-        promptInput.value = '';
+        if (signal.aborted) {
+            resultText.innerText = "Request aborted.";
+        } else {
+            console.error("Error:", error);
+            resultText.innerHTML += `<div>Error occurred while generating.</div>`;
+            promptInput.value = '';
+        }
+
+    } finally {
+        // Enable the generate button and disable the stop button
+        generateBtn.disabled = false;
+        stopBtn.disabled = true;
+        controller = null; // Reset the AbortController instance
     }
 };
+
+const stop = () => {
+    // Abort the fetch request by calling abort() on the AbortController instance
+    if (controller) {
+        controller.abort();
+        controller = null;
+    }
+};
+
 
 promptInput.addEventListener("keyup", (e) => {
     if (e.key === "Enter") {
