@@ -43,13 +43,14 @@ const generate = async () => {
         }, 7000);
 
         const text = await response.text();
+        resultText.innerText = ""; // Clear "Generating..." text
         // Append new response
         resultText.innerHTML += `<div style="padding: 10px 0;">${text}</div>`;
         // Scroll to the latest response
         resultText.scrollTop = resultText.scrollHeight;
         promptInput.value = '';
         document.getElementById("spinner").style.display = "none";
-        resultText.innerText = "";
+
     } catch (error) {
         if (signal.aborted) {
             resultText.innerText = "Request aborted.";
