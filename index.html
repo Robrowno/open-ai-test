@@ -15,10 +15,11 @@
         <h1 class="text-3xl font-bold mb-6">
             Streaming OpenAI API Completions in JavaScript
         </h1>
-        <div id="resultContainer" class="mt-4 h-48 overflow-y-auto inline">
+        <div id="resultContainer" class="mt-4 h-48 overflow-y-auto">
             <p class="text-gray-500 text-sm mb-2">Generated Text</p>
-            <p id="resultText" class="whitespace-pre-line"></p>
-            <span>
+            <div class="whitespace-pre-line flex items-center">
+                <p id="resultText" class="whitespace-pre-line"></p>
+
                 <div id="spinner" class="hidden" role="status">
                     <svg aria-hidden="true"
                         class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -32,7 +33,10 @@
                     </svg>
                     <span class="sr-only">Loading...</span>
                 </div>
-            </span>
+
+
+            </div>
+
         </div>
         <input type="text" id="promptInput"
             class="w-full px-4 py-2 rounded-md bg-gray-200 placeholder-gray-500 focus:outline-none mt-4"

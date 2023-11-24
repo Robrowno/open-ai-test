@@ -48,6 +48,8 @@ const generate = async () => {
         // Scroll to the latest response
         resultText.scrollTop = resultText.scrollHeight;
         promptInput.value = '';
+        document.getElementById("spinner").style.display = "none";
+        resultText.innerText = "";
     } catch (error) {
         if (signal.aborted) {
             resultText.innerText = "Request aborted.";
