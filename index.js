@@ -28,6 +28,8 @@ const generate = async () => {
     generateBtn.disabled = true;
     stopBtn.disabled = false;
     resultText.innerText = "Generating...";
+    document.getElementById("spinner").style.display = "block";
+
 
     controller = new AbortController();
     const signal = controller.signal;
