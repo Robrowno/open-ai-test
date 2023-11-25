@@ -35,7 +35,7 @@ const generate = async () => {
     const signal = controller.signal;
 
     try {
-        const response = await fetchWithTimeout('/api/generate', {
+        const response = await fetch('/api/generate', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: promptInput.value }),
