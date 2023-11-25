@@ -6,14 +6,14 @@ const stopBtn = document.getElementById("stopBtn");
 let controller = null;
 
 
-const fetchWithTimeout = (url, options, timeout = 10000) => {
-    return Promise.race([
-        fetch(url, options),
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Request timed out')), timeout)
-        )
-    ]);
-};
+// const fetchWithTimeout = (url, options, timeout = 10000) => {
+//     return Promise.race([
+//         fetch(url, options),
+//         new Promise((_, reject) =>
+//             setTimeout(() => reject(new Error('Request timed out')), timeout)
+//         )
+//     ]);
+// };
 
 const generate = async () => {
 
@@ -40,7 +40,7 @@ const generate = async () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ content: promptInput.value }),
             signal,
-        }, 7000);
+        });
 
         const text = await response.text();
         resultText.innerText = ""; // Clear "Generating..." text
