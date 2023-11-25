@@ -42,7 +42,7 @@ export default async (req, res) => {
         console.log("data " + data);
         const formattedContent = data.choices[0].message.content.replace(/\n/g, "<br>");
         console.log("formatted content " + formattedContent);
-        res.status(200).json({ content: formattedContent });
+        res.status(200).json(formattedContent);
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ message: "Error occurred while generating." });

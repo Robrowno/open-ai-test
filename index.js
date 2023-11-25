@@ -46,7 +46,7 @@ const generate = async () => {
         console.log("text " + text);
         resultText.innerText = ""; // Clear "Generating..." text
         // Append new response
-        resultText.innerHTML += `<div style="padding: 10px 0;">${text.content}</div>`;
+        resultText.innerHTML += `<div style="padding: 10px 0;">${text}</div>`;
         // Scroll to the latest response
         resultText.scrollTop = resultText.scrollHeight;
         promptInput.value = '';
